@@ -1,9 +1,8 @@
 import sqlite3
-# import asyncio
 
 
 # Подключаем базу данных и создаем курсор для работы с таблицами
-conn = sqlite3.connect('db/db.db', check_same_thread=False)
+conn = sqlite3.connect('db.db', check_same_thread=False)
 cursor = conn.cursor()
 
 
@@ -15,6 +14,11 @@ async def db_table_val(user_id: int, user_name: str, user_surname: str, username
     conn.commit()
 
 
+async def is_user_exist(user_id: int):
+    return cursor.execute(f'SELECT EXISTS(SELECT user_id FROM test_user_table WHERE user_id = {user_id})')
+
+
+# Эти методы нужны для работы с object storage
 async def get_photo_number(user_id: int):
     cursor.execute(f'SELECT photo_number FROM test_user_table WHERE user_id = {user_id}')
     result = cursor.fetchall()[0][0]
@@ -25,5 +29,3 @@ async def get_photo_number(user_id: int):
 async def update_photo_number(user_id: int):
     cursor.execute(f'UPDATE test_user_table SET photo_number = photo_number + 1 WHERE user_id = {user_id}')
     conn.commit()
-
-# asyncio.run(get_photo_number(479342226))
