@@ -67,6 +67,8 @@ async def download_photo(message: types.Message):
 
     remove(f"tmp\\{message.from_user.id}.jpg")
 
+    await message.answer('Ваше фото обрабатывается...')
+
     # Убедитесь, что каталог /tmp/somedir существует!
     # Используем индекс [-1], чтобы взять большее по размеру изображение
     # await message.photo[-1].download(destination_dir=f'tmp\\{message.from_user.id}')
