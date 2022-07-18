@@ -1,4 +1,3 @@
-import asyncio
 import aiohttp
 
 
@@ -8,7 +7,5 @@ async def get_history(tag: str, limit: int = 10):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
             response = await resp.read()
-            print(response)
-            print(response.decode('UTF-8'))
-
-asyncio.run(get_history(tag="1"))
+            return response
+            # print(response.decode('UTF-8'))

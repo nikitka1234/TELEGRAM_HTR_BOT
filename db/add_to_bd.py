@@ -2,7 +2,7 @@ import sqlite3
 
 
 # Подключаем базу данных и создаем курсор для работы с таблицами
-conn = sqlite3.connect('db\\db.db', check_same_thread=False)
+conn = sqlite3.connect('C:\\Users\\mrkim\\PycharmProjects\\HTR_BOT\\db\\db.db', check_same_thread=False)
 cursor = conn.cursor()
 
 
@@ -15,7 +15,7 @@ async def db_table_val(user_id: int, user_name: str, user_surname: str, username
 
 
 async def is_user_exist(user_id: int):
-    return cursor.execute(f'SELECT EXISTS(SELECT user_id FROM test_user_table WHERE user_id = {user_id})')
+    return list(cursor.execute(f'SELECT EXISTS(SELECT user_id FROM test_user_table WHERE user_id = {user_id})'))[0][0]
 
 
 # Эти методы нужны для работы с object storage
