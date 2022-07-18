@@ -2,6 +2,7 @@ from aiogram import types, Dispatcher
 from os import remove
 from create_bot import bot
 from keyboards import client_kb
+from photo_processing import send_photo
 
 from db import add_to_bd
 # form object_storage import add_to_os
@@ -52,26 +53,7 @@ async def send_website(message: types.Message):
 
 # @dp.message_handler(content_types=['photo'])
 async def download_photo(message: types.Message):
-    file_id = message.photo[-1].file_id
-    file = await bot.get_file(file_id)
-    file_path = file.file_path
-
-    await add_to_bd.update_photo_number(user_id=message.from_user.id)
-
-    # photo_number = await add_to_bd.get_photo_number(message.from_user.id)
-
-    await bot.download_file(file_path, f"tmp\\{message.from_user.id}.jpg")
-
-    # await add_to_os.upload_file(object_name=f"tmp\\{message.from_user.id}.jpg", bucket_name=getenv("BUCKET_NAME"),
-                                # object_bucket_name=f"{message.from_user.id}/{photo_number}.jpg")
-
-    remove(f"tmp\\{message.from_user.id}.jpg")
-
-    await message.answer('Ваше фото обрабатывается...')
-
-    # Убедитесь, что каталог /tmp/somedir существует!
-    # Используем индекс [-1], чтобы взять большее по размеру изображение
-    # await message.photo[-1].download(destination_dir=f'tmp\\{message.from_user.id}')
+    await message.answer("Чтобы загрузить фото для обработки используйте команду:\n/upload_photo")
 
 
 def register_handlers_client(dp: Dispatcher):

@@ -1,6 +1,7 @@
 from create_bot import dp
 from aiogram import executor
 from handlers import client, admin, other
+from handlers import fsm_client
 
 import logging
 
@@ -13,6 +14,8 @@ logging.basicConfig(level=logging.INFO)
 
 
 client.register_handlers_client(dp)
+fsm_client.register_handlers_photo(dp)
+fsm_client.register_handlers_common(dp)
 
 
 if __name__ == "__main__":

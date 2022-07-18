@@ -1,18 +1,25 @@
-import asyncio
+# import asyncio
 import aiohttp
 
 
-url = 'http://127.0.0.1:8000/api/upload/'
+headers = {
+
+}
 
 
-async def post_request():
-    file = {'file': 'tmp\\example\\example.jpg'}
+async def post_request(file: str, file_id: int):
+    url = f'http://176.53.160.122:8000/api/upload?file_id={file_id}'
+
+    data = {
+        "file_id": bytes(file_id),
+        "file": open(file, 'rb')
+    }
 
     async with aiohttp.ClientSession() as session:
         async with session.post(url,
-                                headers={'Authorization': 'Bearer 123456', 'Content-Type': 'image/jpg'},
-                                data=file) as resp:
+                                headers=headers,
+                                data=data) as resp:
             response = await resp.json()
             print(response)
 
-asyncio.run(post_request())
+# asyncio.run(post_request('C:\\Users\\mrkim\\PycharmProjects\\HTR_BOT\\tmp\\example\\example.jpg', 5))
