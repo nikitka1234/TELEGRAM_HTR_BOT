@@ -2,7 +2,7 @@ import aiohttp
 
 
 headers = {
-
+    # 'Content-type': 'multipart/form-data'
 }
 
 
@@ -19,5 +19,4 @@ async def post_request(file: str, file_id: int, tag: str, photo_number: int):
         async with session.post(url,
                                 headers=headers,
                                 data=data) as resp:
-            response = await resp.json()
-            print(response)
+            await resp.json()

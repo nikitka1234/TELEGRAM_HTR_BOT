@@ -1,14 +1,21 @@
-import asyncio
 import aiohttp
+import re
 
 
-async def get_history(tag: str, limit: int = 10):
-    url = f'http://176.53.160.122:8000/api/get?tag={tag}&limit={limit}'
+r_str = r'.*?(?=\,"name"|$)'
+r_str1 = r'.text.*'
+
+
+async def get_text(tag: str, name: str):
+    url = f'http://176.53.160.122:8000/api/get?tag={tag}&name={name}'
 
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
             response = await resp.read()
-            print(response)
-            print(response.decode('UTF-8'))
 
-asyncio.run(get_history(tag="1"))
+            result = response.decode('UTF-8')
+
+            match = re.search(r_str, result)
+            match = re.search(r_str1, str(match.group(0)))
+
+            return match.group(0).split(':')[1]
