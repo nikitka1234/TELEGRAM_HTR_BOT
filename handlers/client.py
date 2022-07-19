@@ -35,8 +35,12 @@ async def send_help(message: types.Message):
 
 
 async def send_example(message: types.Message):
-    await bot.send_photo(message.from_user.id, types.InputFile('tmp\\example\\example.jpg'),
+    await bot.send_photo(message.from_user.id, types.InputFile('tmp/example/example.jpg'),
                          caption='Пример работы бота')
+
+    # await bot.send_photo(message.from_user.id, types.InputFile('tmp\\example\\example.jpg'),
+                         # caption='Пример работы бота')
+
     await message.answer("Вы также можете распознать свой текст.\nПросто отправьте боту фото")
 
 
@@ -64,11 +68,17 @@ async def download_photo(message: types.Message):
 
     photo_number = await add_to_bd.get_photo_number(message.from_user.id)
 
-    await bot.download_file(file_path, f"tmp\\{message.from_user.id}.jpg")
+    await bot.download_file(file_path, f"tmp/{message.from_user.id}.jpg")
 
-    await send_photo.post_request(file=f"C:\\Users\\mrkim\\PycharmProjects\\HTR_BOT\\tmp\\{message.from_user.id}.jpg",
+    await send_photo.post_request(file=f"/home/telegram_bot/TELEGRAM_HTR_BOT/tmp/{message.from_user.id}.jpg",
                                   file_id=message.from_user.id, tag=f'{message.from_user.id}',
                                   photo_number=photo_number)
+
+    # await bot.download_file(file_path, f"tmp\\{message.from_user.id}.jpg")
+
+    # await send_photo.post_request(file=f"C:\\Users\\mrkim\\PycharmProjects\\HTR_BOT\\tmp\\{message.from_user.id}.jpg",
+                                  # file_id=message.from_user.id, tag=f'{message.from_user.id}',
+                                  # photo_number=photo_number)
 
     # await add_to_os.upload_file(object_name=f"tmp\\{message.from_user.id}.jpg", bucket_name=getenv("BUCKET_NAME"),
     # object_bucket_name=f"{message.from_user.id}/{photo_number}.jpg")
