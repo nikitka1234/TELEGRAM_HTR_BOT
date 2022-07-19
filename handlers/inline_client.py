@@ -24,7 +24,7 @@ async def inline_send_history(message: types.Message):
         await message.answer("Вы еще не отправляли боту фотографий")
 
     else:
-        await message.answer(history)
+        await bot.send_message(chat_id=message.from_user.id, text=history)
 
 
 def register_inline_handlers_client(dp: Dispatcher):

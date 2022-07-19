@@ -48,14 +48,14 @@ async def send_history(message: types.Message):
     history = await get_history.get_history(tag=f'{message.from_user.id}')
 
     if "No results" in history.decode('utf-8'):
-        await message.answer("Вы еще не отправляли боту фотографий")
+        await message.answer(text="Вы еще не отправляли боту фотографий")
 
     else:
-        await message.answer(history)
+        await bot.send_message(chat_id=message.from_user.id, text=history)
 
 
 async def download_photo(message: types.Message):
-    await message.answer("Ваша фотография успешно загружена.\nНачинается обработка...")
+    await message.answer(text="Ваша фотография успешно загружена.\nНачинается обработка...")
     file_id = message.photo[-1].file_id
     file = await bot.get_file(file_id)
     file_path = file.file_path
