@@ -13,7 +13,6 @@ async def get_history(tag: str, limit: int = 10):
             response = await resp.read()
 
             result = response.decode('UTF-8').split('tag')[1:]
-            print(result)
 
             for x in range(0, len(result)):
                 match = re.search(r_str, result[x])
