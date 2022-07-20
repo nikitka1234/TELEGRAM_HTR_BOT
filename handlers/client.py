@@ -70,15 +70,15 @@ async def download_photo(message: types.Message):
 
     photo_number = await add_to_bd.get_photo_number(message.from_user.id)
 
-    await bot.download_file(file_path, f"tmp\\{message.from_user.id}.jpg")
+    await bot.download_file(file_path, f"tmp/{message.from_user.id}.jpg")
 
     file_id = await check_file_id(message=message)
 
-    await send_photo.post_request(file=f"C:\\Users\\mrkim\\PycharmProjects\\HTR_BOT\\tmp\\{message.from_user.id}.jpg",
+    await send_photo.post_request(file=f"/home/telegram_bot/TELEGRAM_HTR_BOT/tmp/{message.from_user.id}.jpg",
                                   file_id=file_id, tag=f'{message.from_user.id}',
                                   photo_number=photo_number)
 
-    remove(f"tmp\\{message.from_user.id}.jpg")
+    remove(f"tmp/{message.from_user.id}.jpg")
 
     text = await get_text.get_text(tag=f'{message.from_user.id}',
                                    name=f'{file_id + photo_number}.jpg')
@@ -96,13 +96,13 @@ async def text_for_user(message: types.Message, text: str):
         await bot.send_message(chat_id=message.from_user.id, text=f"Ваш текст:\n\n{text}")
 
     else:
-        with open(f"tmp\\text_file\\{message.from_user.id}.txt", 'w', encoding='utf-8') as file:
+        with open(f"tmp/text_file/{message.from_user.id}.txt", 'w', encoding='utf-8') as file:
             file.write(text)
 
             await bot.send_file(chat_id=message.from_user.id,
                                 text="Так как ваш текст превышает количество символов в одном сообщении -"
                                      "мы отправили его вам в виде файла",
-                                file=f"tmp\\text_file\\{message.from_user.id}.txt")
+                                file=f"tmp/text_file/{message.from_user.id}.txt")
 
         remove(f"tmp/text_file/{message.from_user.id}.txt")
 

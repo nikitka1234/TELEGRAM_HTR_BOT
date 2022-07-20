@@ -4,7 +4,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 
 # Получаем api_token из Environment Variables
-_API_TOKEN = getenv("API_TOKEN")
+_API_TOKEN = "5470452176:AAHl7PpnuyB5wz15cFkHPntJMqknnMUkNBU"
 if not _API_TOKEN:
     exit("Error: no token provided")
 
