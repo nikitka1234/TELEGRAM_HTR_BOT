@@ -98,11 +98,11 @@ async def next_page(call: types.CallbackQuery):
                                   reply_markup=markup)
 
 
-async def handler(message: types.Message):
-    history = await get_history.get_history(tag=f'{message.from_user.id}')
+async def handler(call: types.CallbackQuery):
+    history = await get_history.get_history(tag=f'{call.from_user.id}')
 
     if "No results" in history:
-        await message.answer("Вы еще не отправляли боту фотографий")
+        await call.answer("Вы еще не отправляли боту фотографий")
         return
 
     else:
@@ -113,7 +113,7 @@ async def handler(message: types.Message):
         InlineKeyboardButton("0", callback_data="null"),
         InlineKeyboardButton("NEXT", callback_data=f"next:0")
     )
-    await message.answer_photo(open(history[0].strip('"'), 'rb'), reply_markup=markup)
+    await call.message.answer_photo(open(history[0].strip('"'), 'rb'), reply_markup=markup)
 
 
 def register_history_kb(dp: Dispatcher):
