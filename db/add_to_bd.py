@@ -2,7 +2,7 @@ import sqlite3
 
 
 # Подключаем базу данных и создаем курсор для работы с таблицами
-conn = sqlite3.connect('C:\\Users\\mrkim\\PycharmProjects\\HTR_BOT\\db\\db.db', check_same_thread=False)
+conn = sqlite3.connect('/home/telegram_bot/TELEGRAM_HTR_BOT/db/db.db', check_same_thread=False)
 cursor = conn.cursor()
 
 
