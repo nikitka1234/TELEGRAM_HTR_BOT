@@ -46,7 +46,7 @@ async def handler(message: types.Message):
 
     else:
         for x in range(0, len(history)):
-            history[x] = '/home/api/Site_back_dev/uploaded_files' + history[x]
+            history[x] = '/home/api/Site_back_dev/uploaded_files/' + history[x]
 
     markup = InlineKeyboardMarkup().add(
         InlineKeyboardButton("0", callback_data="null"),
