@@ -20,7 +20,7 @@ async def inline_send_example(callback_query: types.CallbackQuery):
 async def inline_send_history(message: types.Message):
     history = await get_history.get_history(tag=f'{message.from_user.id}')
 
-    if "No results" in history.decode('utf-8'):
+    if "No results" in history:
         await message.answer("Вы еще не отправляли боту фотографий")
 
     else:

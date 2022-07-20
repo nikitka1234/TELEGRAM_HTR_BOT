@@ -1,4 +1,8 @@
 import aiohttp
+import re
+
+r_str = r'.*?(?=\,"size"|$)'
+r_str1 = r'.name.*'
 
 
 async def get_history(tag: str, limit: int = 10):
@@ -7,5 +11,16 @@ async def get_history(tag: str, limit: int = 10):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
             response = await resp.read()
-            return response
+
+            result = response.decode('UTF-8').split('tag')[1:]
+            print(result)
+
+            for x in range(0, len(result)):
+                match = re.search(r_str, result[x])
+                match = re.search(r_str1, str(match.group(0)))
+
+                if match != None:
+                    result[x] = match.group(0).split(':')[1]
+
+            return result
             # print(response.decode('UTF-8'))

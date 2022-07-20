@@ -1,5 +1,6 @@
 from aiogram import Bot, Dispatcher
 from os import getenv
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 
 # Получаем api_token из Environment Variables
@@ -10,4 +11,4 @@ if not _API_TOKEN:
 
 # Инициализируем бота и диспетчера
 bot = Bot(token=_API_TOKEN)
-dp = Dispatcher(bot)
+dp = Dispatcher(bot, storage=MemoryStorage())
