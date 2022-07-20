@@ -30,4 +30,4 @@ async def inline_send_history(message: types.Message):
 def register_inline_handlers_client(dp: Dispatcher):
     dp.register_callback_query_handler(inline_send_help, lambda c: c.data == 'help_button')
     dp.register_callback_query_handler(inline_send_example, lambda c: c.data == 'example_button')
-    dp.register_callback_query_handler(inline_send_history, lambda c: c.data == 'history_button')
+    # dp.register_callback_query_handler(inline_send_history, lambda c: c.data == 'history_button')
