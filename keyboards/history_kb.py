@@ -18,7 +18,7 @@ async def prev_page(call: types.CallbackQuery):
         InlineKeyboardButton(str(data), callback_data="null"),
         InlineKeyboardButton("NEXT", callback_data=f"next:{data}:{list_len}:{history_list}"),
     )
-    await call.message.edit_media(media=types.InputMediaPhoto(open(history_list[data], 'rb')), reply_markup=markup)
+    await call.message.edit_media(media=types.InputMediaPhoto(open(history_list[data].strip('"'), 'rb')), reply_markup=markup)
 
 
 async def next_page(call: types.CallbackQuery):
@@ -35,7 +35,7 @@ async def next_page(call: types.CallbackQuery):
         InlineKeyboardButton(str(data), callback_data="null"),
         InlineKeyboardButton("NEXT", callback_data=f"next:{data}:{list_len}:{history_list}"),
     )
-    await call.message.edit_media(media=types.InputMediaPhoto(open(history_list[data], 'rb')), reply_markup=markup)
+    await call.message.edit_media(media=types.InputMediaPhoto(open(history_list[data].strip('"'), 'rb')), reply_markup=markup)
 
 
 async def handler(message: types.Message):
@@ -52,7 +52,7 @@ async def handler(message: types.Message):
         InlineKeyboardButton("0", callback_data="null"),
         InlineKeyboardButton("NEXT", callback_data=f"next:0:{len(history)}:{history}")
     )
-    await message.answer_photo(open(history[0], 'rb'), reply_markup=markup)
+    await message.answer_photo(open(history[0].strip('"'), 'rb'), reply_markup=markup)
 
 
 def register_history_kb(dp: Dispatcher):
