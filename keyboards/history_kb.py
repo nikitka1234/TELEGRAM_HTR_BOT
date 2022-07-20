@@ -117,7 +117,7 @@ async def handler(message: types.Message):
 
 
 def register_history_kb(dp: Dispatcher):
-    dp.register_message_handler(handler, commands=['history_kb'])
+    # dp.register_message_handler(handler, commands=['history_kb'])
     dp.register_callback_query_handler(next_page, lambda c: c.data.startswith("next"))
     dp.register_callback_query_handler(prev_page, lambda c: c.data.startswith("prev"))
 
