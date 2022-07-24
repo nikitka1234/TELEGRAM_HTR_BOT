@@ -12,7 +12,7 @@ async def get_history(tag: str, limit: int = 10):
         async with session.get(url) as resp:
             response = await resp.read()
 
-            result = response.decode('UTF-8').rstrip('}]').lstrip('[{')
+            result = response.decode('UTF-8').split('}]')
 
             for x in range(0, len(result)):
                 match = re.search(r_str, result[x])
