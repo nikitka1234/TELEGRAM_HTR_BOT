@@ -67,12 +67,20 @@ async def prev_page(call: types.CallbackQuery):
     await call.answer()
     data = int(call.data.split(":")[1]) - 1
 
-    if data <= -1:
+    if data <= 0:
         return None
+
+    if data == 1:
+        markup = InlineKeyboardMarkup().add(
+            InlineKeyboardButton(str(data) + "/" + str(len(history)), callback_data="null"),
+            InlineKeyboardButton("NEXT", callback_data=f"next:{data}"),
+        )
+        await call.message.edit_media(media=types.InputMediaPhoto(open(history[data].strip('"'), 'rb')),
+                                      reply_markup=markup)
 
     markup = InlineKeyboardMarkup().add(
         InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
-        InlineKeyboardButton(str(data), callback_data="null"),
+        InlineKeyboardButton(str(data)+"/"+str(len(history)), callback_data="null"),
         InlineKeyboardButton("NEXT", callback_data=f"next:{data}"),
     )
     await call.message.edit_media(media=types.InputMediaPhoto(open(history[data].strip('"'), 'rb')),
@@ -89,9 +97,17 @@ async def next_page(call: types.CallbackQuery):
     if data >= len(history):
         return None
 
+    if data == len(history):
+        markup = InlineKeyboardMarkup().add(
+            InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
+            InlineKeyboardButton(str(data) + "/" + str(len(history)), callback_data="null"),
+        )
+        await call.message.edit_media(media=types.InputMediaPhoto(open(history[data].strip('"'), 'rb')),
+                                      reply_markup=markup)
+
     markup = InlineKeyboardMarkup().add(
         InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
-        InlineKeyboardButton(str(data), callback_data="null"),
+        InlineKeyboardButton(str(data)+"/"+str(len(history)), callback_data="null"),
         InlineKeyboardButton("NEXT", callback_data=f"next:{data}"),
     )
     await call.message.edit_media(media=types.InputMediaPhoto(open(history[data].strip('"'), 'rb')),
@@ -110,8 +126,8 @@ async def handler(call: types.CallbackQuery):
             history[x] = '/home/api/Site_back_dev/uploaded_files/' + history[x].strip('"')
 
     markup = InlineKeyboardMarkup().add(
-        InlineKeyboardButton("0", callback_data="null"),
-        InlineKeyboardButton("NEXT", callback_data=f"next:0")
+        InlineKeyboardButton(f"1/{len(history)}", callback_data="null"),
+        InlineKeyboardButton("NEXT", callback_data=f"next:1")
     )
     await call.message.answer_photo(open(history[0].strip('"'), 'rb'), reply_markup=markup)
 
