@@ -75,7 +75,7 @@ async def prev_page(call: types.CallbackQuery):
             InlineKeyboardButton(str(data) + "/" + str(len(history)), callback_data="null"),
             InlineKeyboardButton("NEXT", callback_data=f"next:{data}"),
         )
-        await call.message.edit_media(media=types.InputMediaPhoto(open(history[data].strip('"'), 'rb')),
+        await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
     else:
         markup = InlineKeyboardMarkup().add(
@@ -102,7 +102,7 @@ async def next_page(call: types.CallbackQuery):
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
             InlineKeyboardButton(str(data) + "/" + str(len(history)), callback_data="null"),
         )
-        await call.message.edit_media(media=types.InputMediaPhoto(open(history[data].strip('"'), 'rb')),
+        await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
     else:
         markup = InlineKeyboardMarkup().add(
