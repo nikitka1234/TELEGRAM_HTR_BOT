@@ -9,12 +9,16 @@ import settings
 async def inline_send_help(callback_query: types.CallbackQuery):
     await bot.send_message(chat_id=callback_query.from_user.id, text=settings.HELP_MESSAGE, reply_markup=client_kb)
 
+    return None
+
 
 async def inline_send_example(callback_query: types.CallbackQuery):
     await bot.send_photo(chat_id=callback_query.from_user.id, photo=types.InputFile('tmp/example/example.jpg'),
                          caption='Пример работы бота')
     await bot.send_message(chat_id=callback_query.from_user.id,
                            text="Вы также можете распознать свой текст.\nПросто отправьте боту фото")
+
+    return None
 
 
 async def inline_send_history(message: types.Message):
