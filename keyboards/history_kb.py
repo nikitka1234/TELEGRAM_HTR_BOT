@@ -131,6 +131,8 @@ async def handler(call: types.CallbackQuery):
     )
     await call.message.answer_photo(open(history[0].strip('"'), 'rb'), reply_markup=markup)
 
+    await call.answer(cache_time=1)
+
 
 def register_history_kb(dp: Dispatcher):
     # dp.register_message_handler(handler, commands=['history_kb'])
