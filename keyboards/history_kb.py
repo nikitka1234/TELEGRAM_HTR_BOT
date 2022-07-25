@@ -94,7 +94,7 @@ async def next_page(call: types.CallbackQuery):
     await call.answer()
     data = int(call.data.split(":")[1]) + 1
 
-    if data >= len(history):
+    if data > len(history):
         return None
 
     if data == len(history):
