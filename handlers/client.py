@@ -95,7 +95,7 @@ async def download_file_photo(message: types.Message):
     if 'jpg' or 'jpeg' or 'png' in message.document.file_name:
         msg = await message.answer(text="Ваша фотография успешно загружена.\nНачинается обработка...")
 
-        file_id = message.photo[-1].file_id
+        file_id = message.document.file_id
         file = await bot.get_file(file_id)
         file_path = file.file_path
 
@@ -103,7 +103,8 @@ async def download_file_photo(message: types.Message):
 
         photo_number = await add_to_bd.get_photo_number(message.from_user.id)
 
-        await bot.download_file(file_path, f"tmp/{message.from_user.id}.jpg")
+        await bot.download_file(file_path, f"tmp/{message.from_user.id}"
+                                           f"{message.document.file_name.split('.')[-1]}")
 
         file_id = await check_file_id(message=message)
 
