@@ -9,7 +9,7 @@ import settings
 async def inline_send_help(callback_query: types.CallbackQuery):
     await bot.send_message(chat_id=callback_query.from_user.id, text=settings.HELP_MESSAGE, reply_markup=client_kb)
 
-    return None
+    await callback_query.answer(cache_time=1)
 
 
 async def inline_send_example(callback_query: types.CallbackQuery):
@@ -18,7 +18,7 @@ async def inline_send_example(callback_query: types.CallbackQuery):
     await bot.send_message(chat_id=callback_query.from_user.id,
                            text="Вы также можете распознать свой текст.\nПросто отправьте боту фото")
 
-    return None
+    await callback_query.answer(cache_time=1)
 
 
 async def inline_send_history(message: types.Message):
