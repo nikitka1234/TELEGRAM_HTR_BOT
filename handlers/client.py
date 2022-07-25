@@ -91,6 +91,40 @@ async def download_photo(message: types.Message):
     # object_bucket_name=f"{message.from_user.id}/{photo_number}.jpg")
 
 
+async def download_file_photo(message: types.Message):
+    if 'jpg' or 'jpeg' or 'png' in message.document.file_name:
+        msg = await message.answer(text="Ваша фотография успешно загружена.\nНачинается обработка...")
+
+        file_id = message.photo[-1].file_id
+        file = await bot.get_file(file_id)
+        file_path = file.file_path
+
+        await add_to_bd.update_photo_number(user_id=message.from_user.id)
+
+        photo_number = await add_to_bd.get_photo_number(message.from_user.id)
+
+        await bot.download_file(file_path, f"tmp/{message.from_user.id}.jpg")
+
+        file_id = await check_file_id(message=message)
+
+        await send_photo.post_request(file=f"/home/telegram_bot/TELEGRAM_HTR_BOT/tmp/{message.from_user.id}"
+                                           f"{message.document.file_name.split('.')[-1]}",
+                                      file_id=file_id, tag=f'{message.from_user.id}',
+                                      photo_number=photo_number)
+
+        remove(f"tmp/{message.from_user.id}.jpg")
+
+        text = await get_text.get_text(tag=f'{message.from_user.id}',
+                                       name=f'{file_id + photo_number}.jpg')
+
+        await text_for_user(message=message, text=text)
+
+        await msg.delete()
+
+        # await add_to_os.upload_file(object_name=f"tmp\\{message.from_user.id}.jpg", bucket_name=getenv("BUCKET_NAME"),
+        # object_bucket_name=f"{message.from_user.id}/{photo_number}.jpg")
+
+
 async def text_for_user(message: types.Message, text: str):
     if len(text) <= 1024:
         await bot.send_message(chat_id=message.from_user.id, text=f"Ваш текст:\n\n{text}")
@@ -121,6 +155,7 @@ def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(send_website, commands=['website'])
     dp.register_message_handler(send_history, commands=['history'])
     dp.register_message_handler(download_photo, content_types=['photo'])
+    dp.register_message_handler(download_file_photo, content_types=['document'])
 
     dp.register_message_handler(send_help, lambda message: message.text == 'Помощь')
     dp.register_message_handler(send_example, lambda message: message.text == 'Пример')
