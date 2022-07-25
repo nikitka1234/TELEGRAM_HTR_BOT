@@ -103,17 +103,18 @@ async def download_file_photo(message: types.Message):
 
         photo_number = await add_to_bd.get_photo_number(message.from_user.id)
 
-        await bot.download_file(file_path, f"tmp/{message.from_user.id}"
+        await bot.download_file(file_path, f"tmp/{message.from_user.id}."
                                            f"{message.document.file_name.split('.')[-1]}")
 
         file_id = await check_file_id(message=message)
 
-        await send_photo.post_request(file=f"/home/telegram_bot/TELEGRAM_HTR_BOT/tmp/{message.from_user.id}"
+        await send_photo.post_request(file=f"/home/telegram_bot/TELEGRAM_HTR_BOT/tmp/{message.from_user.id}."
                                            f"{message.document.file_name.split('.')[-1]}",
                                       file_id=file_id, tag=f'{message.from_user.id}',
                                       photo_number=photo_number)
 
-        remove(f"tmp/{message.from_user.id}.jpg")
+        remove(f"tmp/{message.from_user.id}."
+               f"{message.document.file_name.split('.')[-1]}")
 
         text = await get_text.get_text(tag=f'{message.from_user.id}',
                                        name=f'{file_id + photo_number}.jpg')
