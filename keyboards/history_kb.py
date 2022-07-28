@@ -63,7 +63,7 @@ from photo_processing import get_history
 async def prev_page(call: types.CallbackQuery):
     history = await get_history.get_history(tag=f'{call.from_user.id}')
     for x in range(0, len(history)):
-        history[x] = '/home/api/Site_back_dev/uploaded_files/' + history[x].strip('"')
+        history[x] = '/home/api_new/Site_back_dev/uploaded_files/' + history[x].strip('"')
     await call.answer()
     data = int(call.data.split(":")[1]) - 1
 
@@ -90,7 +90,7 @@ async def prev_page(call: types.CallbackQuery):
 async def next_page(call: types.CallbackQuery):
     history = await get_history.get_history(tag=f'{call.from_user.id}')
     for x in range(0, len(history)):
-        history[x] = '/home/api/Site_back_dev/uploaded_files/' + history[x].strip('"')
+        history[x] = '/home/api_new/Site_back_dev/uploaded_files/' + history[x].strip('"')
     await call.answer()
     data = int(call.data.split(":")[1]) + 1
 
@@ -123,7 +123,7 @@ async def handler(call: types.CallbackQuery):
 
     else:
         for x in range(0, len(history)):
-            history[x] = '/home/api/Site_back_dev/uploaded_files/' + history[x].strip('"')
+            history[x] = '/home/api_new/Site_back_dev/uploaded_files/' + history[x].strip('"')
 
     markup = InlineKeyboardMarkup().add(
         InlineKeyboardButton(f"1/{len(history)}", callback_data="null"),
