@@ -128,7 +128,7 @@ async def download_file_photo(message: types.Message):
         await start_processing.start_processing(file_id=file_id + photo_number)
 
         text = await get_text.get_text(tag=f'{message.from_user.id}',
-                                       name=f'{file_id + photo_number}.jpg')
+                                       name=f'{file_id + photo_number}.{message.document.file_name.split(".")[-1]}')
 
         await text_for_user(message=message, text=text)
 
