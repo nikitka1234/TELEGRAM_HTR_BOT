@@ -77,7 +77,7 @@ async def prev_page(call: types.CallbackQuery):
         return None
 
     if data == 1:
-        await bot.edit_message_caption(message_id=call.message.message_id, caption=text)
+        await bot.edit_message_caption(chat_id=call.from_user.id, message_id=call.message.message_id, caption=text)
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton(str(data) + "/" + str(len(history)), callback_data="null"),
             InlineKeyboardButton("NEXT", callback_data=f"next:{data}"),
@@ -86,7 +86,7 @@ async def prev_page(call: types.CallbackQuery):
                                       reply_markup=markup)
 
     else:
-        await bot.edit_message_caption(message_id=call.message.message_id, caption=text)
+        await bot.edit_message_caption(chat_id=call.from_user.id, message_id=call.message.message_id, caption=text)
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
             InlineKeyboardButton(str(data)+"/"+str(len(history)), callback_data="null"),
@@ -112,7 +112,7 @@ async def next_page(call: types.CallbackQuery):
         return None
 
     if data == len(history):
-        await bot.edit_message_caption(message_id=call.message.message_id, caption=text)
+        await bot.edit_message_caption(chat_id=call.from_user.id, message_id=call.message.message_id, caption=text)
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
             InlineKeyboardButton(str(data) + "/" + str(len(history)), callback_data="null"),
@@ -122,7 +122,7 @@ async def next_page(call: types.CallbackQuery):
 
 
     else:
-        await bot.edit_message_caption(message_id=call.message.message_id, caption=text)
+        await bot.edit_message_caption(chat_id=call.from_user.id, message_id=call.message.message_id, caption=text)
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
             InlineKeyboardButton(str(data)+"/"+str(len(history)), callback_data="null"),
