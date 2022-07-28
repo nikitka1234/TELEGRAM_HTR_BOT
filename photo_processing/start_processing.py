@@ -21,4 +21,4 @@ async def start_processing(file_id: int):
                 await resp.json(content_type="text/plain")
 
             except:
-                print('ебаная ошибка')
+                print('ERROR!!!!!!!!')
