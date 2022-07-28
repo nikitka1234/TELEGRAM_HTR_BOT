@@ -138,7 +138,7 @@ async def handler(call: types.CallbackQuery):
     history = await get_history.get_history(tag=f'{call.from_user.id}')
 
     text = await get_text.get_text(tag=f'{call.from_user.id}',
-                                   name=history[0])
+                                   name=history[0].strip('"'))
 
     if "No results" in history:
         await call.answer("Вы еще не отправляли боту фотографий")
