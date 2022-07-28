@@ -77,6 +77,7 @@ async def prev_page(call: types.CallbackQuery):
         return None
 
     if data == 1:
+        await call.message.edit_caption(text)
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton(str(data) + "/" + str(len(history)), callback_data="null"),
             InlineKeyboardButton("NEXT", callback_data=f"next:{data}"),
@@ -84,9 +85,9 @@ async def prev_page(call: types.CallbackQuery):
         await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
 
-        await call.message.edit_caption(text)
 
     else:
+        await call.message.edit_caption(text)
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
             InlineKeyboardButton(str(data)+"/"+str(len(history)), callback_data="null"),
@@ -95,7 +96,6 @@ async def prev_page(call: types.CallbackQuery):
         await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
 
-        await call.message.edit_caption(text)
 
 async def next_page(call: types.CallbackQuery):
     history = await get_history.get_history(tag=f'{call.from_user.id}')
@@ -113,6 +113,7 @@ async def next_page(call: types.CallbackQuery):
         return None
 
     if data == len(history):
+        await call.message.edit_caption(text)
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
             InlineKeyboardButton(str(data) + "/" + str(len(history)), callback_data="null"),
@@ -120,9 +121,9 @@ async def next_page(call: types.CallbackQuery):
         await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
 
-        await call.message.edit_caption(text)
 
     else:
+        await call.message.edit_caption(text)
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
             InlineKeyboardButton(str(data)+"/"+str(len(history)), callback_data="null"),
@@ -131,7 +132,6 @@ async def next_page(call: types.CallbackQuery):
         await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
 
-        await call.message.edit_caption(text)
 
 
 async def handler(call: types.CallbackQuery):
