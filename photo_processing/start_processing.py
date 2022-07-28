@@ -17,5 +17,8 @@ async def start_processing(file_id: int):
         async with session.post(url,
                                 headers=headers,
                                 data=data) as resp:
-            if resp.status != 204:
+            try:
                 await resp.json(content_type="text/plain")
+
+            except:
+                print('ебаная ошибка')
