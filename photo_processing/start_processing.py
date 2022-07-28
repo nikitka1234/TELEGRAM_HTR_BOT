@@ -17,4 +17,4 @@ async def start_processing(file_id: int):
         async with session.post(url,
                                 headers=headers,
                                 data=data) as resp:
-            await resp.json(content_type='text/html')
+            await resp.json(content_type='text/plain')
