@@ -83,7 +83,7 @@ async def download_photo(message: types.Message):
 
     remove(f"tmp/{message.from_user.id}.jpg")
 
-    await asyncio.sleep(1)
+    await asyncio.sleep(2)
 
     await start_processing.start_processing(file_id=file_id + photo_number)
 
@@ -123,7 +123,7 @@ async def download_file_photo(message: types.Message):
         remove(f"tmp/{message.from_user.id}."
                f"{message.document.file_name.split('.')[-1]}")
 
-        await asyncio.sleep(1)
+        await asyncio.sleep(2)
 
         await start_processing.start_processing(file_id=file_id + photo_number)
 
