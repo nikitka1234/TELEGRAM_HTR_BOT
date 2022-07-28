@@ -8,6 +8,7 @@ from keyboards import client_kb
 from photo_processing import send_photo
 from photo_processing import get_history
 from photo_processing import get_text
+from photo_processing import start_processing
 
 from db import add_to_bd
 # form object_storage import add_to_os
@@ -80,6 +81,8 @@ async def download_photo(message: types.Message):
 
     remove(f"tmp/{message.from_user.id}.jpg")
 
+    await start_processing.start_processing(file_id=file_id + photo_number)
+
     text = await get_text.get_text(tag=f'{message.from_user.id}',
                                    name=f'{file_id + photo_number}.jpg')
 
@@ -115,6 +118,8 @@ async def download_file_photo(message: types.Message):
 
         remove(f"tmp/{message.from_user.id}."
                f"{message.document.file_name.split('.')[-1]}")
+
+        await start_processing.start_processing(file_id=file_id + photo_number)
 
         text = await get_text.get_text(tag=f'{message.from_user.id}',
                                        name=f'{file_id + photo_number}.jpg')
