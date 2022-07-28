@@ -2,6 +2,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram import types, Dispatcher
 from create_bot import bot
 from photo_processing import get_history
+from photo_processing import get_text
 
 
 # async def prev_page(call: types.CallbackQuery):
@@ -62,10 +63,15 @@ from photo_processing import get_history
 
 async def prev_page(call: types.CallbackQuery):
     history = await get_history.get_history(tag=f'{call.from_user.id}')
+
+    data = int(call.data.split(":")[1]) - 1
+
+    text = await get_text.get_text(tag=f'{call.message.from_user.id}',
+                                   name=history[data-1])
+
     for x in range(0, len(history)):
         history[x] = '/home/api_new/Site_back_dev/uploaded_files/' + history[x].strip('"')
     await call.answer()
-    data = int(call.data.split(":")[1]) - 1
 
     if data <= 0:
         return None
@@ -77,6 +83,9 @@ async def prev_page(call: types.CallbackQuery):
         )
         await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
+
+        await call.message.edit_caption(text)
+
     else:
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
@@ -86,13 +95,19 @@ async def prev_page(call: types.CallbackQuery):
         await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
 
+        await call.message.edit_caption(text)
 
 async def next_page(call: types.CallbackQuery):
     history = await get_history.get_history(tag=f'{call.from_user.id}')
+
+    data = int(call.data.split(":")[1]) + 1
+
+    text = await get_text.get_text(tag=f'{call.message.from_user.id}',
+                                   name=history[data-1])
+
     for x in range(0, len(history)):
         history[x] = '/home/api_new/Site_back_dev/uploaded_files/' + history[x].strip('"')
     await call.answer()
-    data = int(call.data.split(":")[1]) + 1
 
     if data > len(history):
         return None
@@ -104,6 +119,9 @@ async def next_page(call: types.CallbackQuery):
         )
         await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
+
+        await call.message.edit_caption(text)
+
     else:
         markup = InlineKeyboardMarkup().add(
             InlineKeyboardButton("PREV", callback_data=f"prev:{data}"),
@@ -113,9 +131,14 @@ async def next_page(call: types.CallbackQuery):
         await call.message.edit_media(media=types.InputMediaPhoto(open(history[data-1].strip('"'), 'rb')),
                                       reply_markup=markup)
 
+        await call.message.edit_caption(text)
+
 
 async def handler(call: types.CallbackQuery):
     history = await get_history.get_history(tag=f'{call.from_user.id}')
+
+    text = await get_text.get_text(tag=f'{call.message.from_user.id}',
+                                   name=history[0])
 
     if "No results" in history:
         await call.answer("Вы еще не отправляли боту фотографий")
@@ -129,7 +152,8 @@ async def handler(call: types.CallbackQuery):
         InlineKeyboardButton(f"1/{len(history)}", callback_data="null"),
         InlineKeyboardButton("NEXT", callback_data=f"next:1")
     )
-    await call.message.answer_photo(open(history[0].strip('"'), 'rb'), reply_markup=markup)
+
+    await call.message.answer_photo(open(history[0].strip('"'), 'rb'), reply_markup=markup, caption=text)
 
     await call.answer(cache_time=1)
 
