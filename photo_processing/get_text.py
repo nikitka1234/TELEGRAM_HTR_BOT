@@ -18,4 +18,4 @@ async def get_text(tag: str, name: str):
             match = re.search(r_str, result)
             match = re.search(r_str1, str(match.group(0)))
 
-            return match.group(0).split(':')[1] #.rstrip('}]')
+            return match.group(0).split(':')[1].rstrip('}]')
