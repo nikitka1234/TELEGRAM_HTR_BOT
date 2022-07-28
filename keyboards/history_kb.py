@@ -66,8 +66,8 @@ async def prev_page(call: types.CallbackQuery):
 
     data = int(call.data.split(":")[1]) - 1
 
-    text = await get_text.get_text(tag=f'{call.message.from_user.id}',
-                                   name=history[data-1].strip('"'))
+    text = await get_text.get_text(tag=f'{call.from_user.id}',
+                                   name=history[data-1])
 
     for x in range(0, len(history)):
         history[x] = '/home/api_new/Site_back_dev/uploaded_files/' + history[x].strip('"')
@@ -102,8 +102,8 @@ async def next_page(call: types.CallbackQuery):
 
     data = int(call.data.split(":")[1]) + 1
 
-    text = await get_text.get_text(tag=f'{call.message.from_user.id}',
-                                   name=history[data-1].strip('"'))
+    text = await get_text.get_text(tag=f'{call.from_user.id}',
+                                   name=history[data-1])
 
     for x in range(0, len(history)):
         history[x] = '/home/api_new/Site_back_dev/uploaded_files/' + history[x].strip('"')
@@ -137,7 +137,7 @@ async def next_page(call: types.CallbackQuery):
 async def handler(call: types.CallbackQuery):
     history = await get_history.get_history(tag=f'{call.from_user.id}')
 
-    text = await get_text.get_text(tag=f'{call.message.from_user.id}',
+    text = await get_text.get_text(tag=f'{call.from_user.id}',
                                    name=history[0])
 
     if "No results" in history:
