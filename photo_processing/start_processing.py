@@ -7,7 +7,7 @@ headers = {
 
 
 async def start_processing(file_id: int):
-    url = f'http://176.53.160.122:8000/api/predict?file_id={file_id}'
+    url = f"http://176.53.160.122:8000/api/predict?file_id={file_id}"
 
     data = {
         "file_id": bytes(file_id)
@@ -18,4 +18,4 @@ async def start_processing(file_id: int):
                                 headers=headers,
                                 data=data) as resp:
             if resp.status != 204:
-                await resp.json(content_type='text/plain')
+                await resp.json(content_type="text/plain")
