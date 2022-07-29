@@ -79,8 +79,6 @@ async def download_photo(message: types.Message):
 
     caption = message.caption
 
-    print(caption)
-
     await send_photo.post_request(file=f"/home/telegram_bot/TELEGRAM_HTR_BOT/tmp/{message.from_user.id}.jpg",
                                   file_id=file_id, tag=f'{message.from_user.id}',
                                   photo_number=photo_number, caption=caption)
@@ -120,8 +118,6 @@ async def download_file_photo(message: types.Message):
         file_id = await check_file_id(message=message)
 
         caption = message.caption
-
-        print(caption)
 
         await send_photo.post_request(file=f"/home/telegram_bot/TELEGRAM_HTR_BOT/tmp/{message.from_user.id}."
                                            f"{message.document.file_name.split('.')[-1]}",
