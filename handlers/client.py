@@ -77,7 +77,7 @@ async def download_photo(message: types.Message):
 
     file_id = await check_file_id(message=message)
 
-    caption = str(message.caption)
+    caption = message.caption.encode('utf-8')
 
     print(caption)
 
@@ -119,7 +119,7 @@ async def download_file_photo(message: types.Message):
 
         file_id = await check_file_id(message=message)
 
-        caption = str(message.caption)
+        caption = message.caption.encode('utf-8')
 
         print(caption)
 
