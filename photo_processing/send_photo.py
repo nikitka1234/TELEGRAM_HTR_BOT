@@ -13,7 +13,7 @@ async def post_request(file: str, file_id: int, tag: str, photo_number: int, cap
         "file_id": bytes(file_id + photo_number),
         "tag": tag,
         "file": open(file, 'rb'),
-        "text": caption
+        "text": caption.lower()
     }
 
     async with aiohttp.ClientSession() as session:
