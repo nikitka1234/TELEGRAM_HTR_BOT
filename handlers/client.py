@@ -79,7 +79,7 @@ async def download_photo(message: types.Message):
 
     file_id = await check_file_id(message=message)
 
-    if message.caption != NoneType:
+    if message.caption != None:
         caption = message.caption
 
     else:
@@ -123,7 +123,7 @@ async def download_file_photo(message: types.Message):
 
         file_id = await check_file_id(message=message)
 
-        if message.caption != NoneType:
+        if message.caption != None:
             caption = message.caption
 
         else:
